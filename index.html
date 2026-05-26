@@ -1,0 +1,1303 @@
+
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			
+			<style>
+body { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
+  background-color: #f3f4f6;
+}
+.container { 
+  background: white; 
+  padding: 2rem; 
+  border-radius: 1rem; 
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); 
+  text-align: center;
+}
+</style>
+			
+			<script>
+				// INTERCEPT CONSOLE LOGS
+				const originalLog = console.log;
+				const originalWarn = console.warn;
+				const originalError = console.error;
+				const originalClear = console.clear;
+
+				function sendToParent(type, args) {
+					const message = args.map(arg => {
+						try {
+							return typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg);
+						} catch(e) {
+							return '[Circular Object]';
+						}
+					}).join(' ');
+					window.parent.postMessage({ type: 'console', level: type, payload: message }, '*');
+				}
+
+				console.log = (...args) => { originalLog(...args); sendToParent('log', args); };
+				console.warn = (...args) => { originalWarn(...args); sendToParent('warn', args); };
+				console.error = (...args) => { originalError(...args); sendToParent('error', args); };
+				console.clear = () => { originalClear(); window.parent.postMessage({ type: 'console-clear' }, '*'); };
+
+				window.onerror = function(message, source, lineno, colno, error) {
+					sendToParent('error', [message + (lineno ? ' (line ' + lineno + ')' : '')]);
+				};
+			</script>
+		</head>
+		<body>
+			<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DIAMOND TOP UP MM - PREMIUM</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        body { 
+            background-color: #0b0f19; 
+            background-image: 
+                radial-gradient(at 50% 0%, rgba(0, 229, 255, 0.18) 0px, transparent 60%),
+                radial-gradient(at 100% 100%, rgba(0, 245, 212, 0.06) 0px, transparent 50%),
+                linear-gradient(135deg, #0b0f19 0%, #111827 100%);
+            color: #ffffff; 
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-cyan-glow {
+            background: linear-gradient(90deg, #00E5FF, #00f5d4);
+            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.4);
+            color: #000000;
+            font-weight: 900;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-cyan-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 245, 212, 0.6);
+        }
+        .btn-cyan-glow:active {
+            transform: translateY(1px);
+        }
+
+        .cyber-input {
+            background: rgba(13, 14, 21, 0.85) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: #ffffff !important;
+            transition: all 0.25s ease;
+        }
+        .cyber-input:focus {
+            border-color: #00E5FF !important;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.25) !important;
+            background: rgba(15, 23, 42, 0.95) !important;
+        }
+
+        .diamond-success-toast {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            border-left: 5px solid #00E5FF;
+            box-shadow: 0px 10px 30px rgba(255, 255, 255, 0.15);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 229, 255, 0.3); border-radius: 10px; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spinner { 
+            border: 3px solid rgba(255,255,255,0.05); 
+            border-radius: 50%; 
+            border-top-color: #00E5FF; 
+            width: 44px; 
+            height: 44px; 
+            animation: spin 0.8s linear infinite; 
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(0.96); }
+        }
+        .badge-new { animation: pulse-soft 1.2s infinite; }
+    </style>
+</head>
+<body class="p-3 sm:p-6 flex flex-col justify-start items-center">
+
+    <div id="root" class="w-full max-w-md mx-auto"></div>
+
+    <div id="customAlert" class="fixed inset-0 bg-black/85 flex items-center justify-center p-4 z-[9999] hidden">
+        <div class="bg-[#111827] border-2 border-cyan-500/30 text-white p-6 rounded-2xl max-w-sm w-full text-center space-y-4 shadow-2xl transform scale-100 transition-all">
+            <div class="text-4xl">⚠️</div>
+            <p id="customAlertText" class="text-sm font-bold leading-relaxed text-gray-200 px-2"></p>
+            <button onclick="closeCustomAlert()" class="w-full btn-cyan-glow py-3 rounded-xl text-xs tracking-wider">အိုကေ</button>
+        </div>
+    </div>
+
+    <div id="rulesModal" class="fixed inset-0 bg-black/90 flex items-center justify-center p-4 z-[9999] hidden">
+        <div class="bg-[#0f1322] border-2 border-red-500/40 text-white p-6 rounded-2xl max-w-md w-full shadow-2xl space-y-4">
+            <div class="text-center border-b border-gray-800 pb-3">
+                <span class="text-3xl">🚨</span>
+                <h3 class="text-red-400 font-black text-base uppercase tracking-wider mt-1">DIAMOND TOP UP MM စည်းကမ်းချက်များ</h3>
+            </div>
+            <div class="space-y-4 text-xs leading-relaxed max-h-[50vh] overflow-y-auto pr-1">
+                <p class="text-gray-300"><strong class="text-yellow-400 block mb-1">၁။ ငွေသွင်းခြင်းအထောက်အထား မှန်ကန်မှုရှိခြင်း</strong> User များအနေဖြင့် ငွေသွင်းရာတွင် မိမိကိုယ်တိုင် အမှန်တကယ် လွှဲပြောင်းထားသော ပြေစာ (Screenshot) နှင့် မှန်ကန်သော ငွေသွင်းကုဒ် (Txn Code) နောက်ဆုံး ၆ လုံးကိုသာ တင်ရပါမည်။</p>
+                <p class="text-gray-300"><strong class="text-red-400 block mb-1">၂။ မမှန်မကန် လုပ်ဆောင်မှုများအပေါ် အရေးယူခြင်း</strong> လိမ်လည်လိုစိတ်ဖြင့် ပြေစာအတုပြုလုပ်ခြင်း၊ သူတစ်ပါး၏ ပြေစာဟောင်းအား ထပ်မံအသုံးပြုခြင်း သို့မဟုတ် ကုဒ်အမှားများကို တမင်သက်သက် ထပ်ခါတလဲလဲ တင်ခြင်းများ ပြုလုပ်ပါက အဆိုပါ User အကောင့်အား မည်သည့်သတိပေးချက်မျှမရှိဘဲ အပြီးပိုင် ပိတ်ပင် (Ban) သွားမည်ဖြစ်သည်။</p>
+                <p class="text-gray-300"><strong class="text-cyan-400 block mb-1">၃။ အော်ဒါကြာမြင့်ချိန်နှင့် အချိန်သတ်မှတ်ချက်</strong> ပုံမှန်အားဖြင့် အော်ဒါများကို ၁ နာရီအတွင်း အမြန်ဆုံး ဆောင်ရွက်ပေးပါသည်။ သို့သော် ဘဏ်စနစ် (KPay/WavePay) ဒေါင်းနေခြင်း၊ ကွန်ရက်လိုင်းမကောင်းခြင်း သို့မဟုတ် ဂိမ်းဆာဗာပိုင်း ပြဿနာများကြောင့် ကြန့်ကြာမှုရှိနိုင်ပြီး ထိုသို့ဖြစ်ပါက Admin ဘက်မှ အသေးစိတ် စစ်ဆေးပေးမည် ဖြစ်သည်။</p>
+                <p class="text-gray-300"><strong class="text-emerald-400 block mb-1">၄။ မှာယူမှု ငြင်းပယ်ခံရခြင်း</strong> မိမိဘက်မှ ငွေမှန်ကန်စွာ လွှဲထားပါလျက် Order ငြင်းပယ်ခံရပါက (သို့မဟုတ်) နားလည်မှုလွဲမှားခြင်းများ ရှိခဲ့ပါက တရားဝင် Telegram Admin ထံသို့ အထောက်အထားအပြည့်အစုံဖြင့် လာရောက်ဖြေရှင်းနိုင်ပါသည်။</p>
+            </div>
+            <button onclick="closeRulesModal()" class="w-full bg-red-600 hover:bg-red-500 text-white text-xs font-black py-3.5 rounded-xl transition-all shadow-md">နားလည်ပြီး ပြန်သွားရန်</button>
+        </div>
+    </div>
+
+    <script>
+        // 🔐 CONFIGURATIONS
+        const FIREBASE_DB_URL   = 'https://kp-shop-6a917-default-rtdb.asia-southeast1.firebasedatabase.app';
+        const TELEGRAM_BOT_TOKEN = '8738346010:AAExTdfKUmQ-fdcl_lodwYmHaJ3nf5gUnc4'; 
+        const TELEGRAM_CHAT_ID   = '8318343193'; 
+        const ADMIN_EMAIL        = "188320kopyae@gmail.com";
+        const KP_TELEGRAM_LINK   = "https://t.me/kp_gaming_official";
+
+        let dbUsers = {};
+        let dbDiamondOrders = {};
+        let dbDepositOrders = {};
+
+        let savedActiveUser = localStorage.getItem('kp_active_user_v6') ? JSON.parse(localStorage.getItem('kp_active_user_v6')) : null;
+
+        let state = { 
+            isLoggedIn: !!savedActiveUser,
+            currentUser: savedActiveUser, 
+            authMode: 'login', 
+            emailInput: '', passwordInput: '', usernameInput: '', 
+            gameId: '', zoneId: '', selectedPackage: null, 
+            screen: savedActiveUser ? (savedActiveUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase() ? 'admin_panel' : 'home') : 'auth', 
+            screenshotUrl: '', screenshotName: '', isUploadingImage: false, 
+            trackingOrder: null, trackingType: 'diamond', selectedDetailOrderId: null, selectedDetailType: 'diamond', selectedPayment: 'kpay', showNoticePopup: true,
+            depositAmountInput: '', depositTxCodeInput: '', activeHistoryTab: 'diamond',
+            showMlbbCategory: false, 
+            adminActiveTab: 'diamond',
+            depositStep: 1, 
+            depositDisplayPhone: ''
+        };
+
+        const packages = [
+            { id: 'p1', name: 'Weekly Diamond Pass', price: 7000 },
+            { id: 'p2', name: '12 Diamonds', price: 1100 },
+            { id: 'p3', name: '21 Diamonds', price: 2000 },
+            { id: 'p4', name: '29 Diamonds', price: 2800 },
+            { id: 'p5', name: '41 Diamonds', price: 3950 },
+            { id: 'p6', name: '202 Diamonds', price: 20000 },
+            { id: 'p7', name: '404 Diamonds', price: 35000 },
+            { id: 'p8', name: '829 Diamonds', price: 80000 },
+            { id: 'p9', name: '2157 Diamonds', price: 210000 },
+            { id: 'p10', name: '3489 Diamonds', price: 34000 }
+        ];
+
+        window.showAlert = function(message) {
+            const alertText = document.getElementById('customAlertText');
+            const alertModal = document.getElementById('customAlert');
+            if (alertText && alertModal) {
+                alertText.innerText = message;
+                alertModal.classList.remove('hidden');
+            }
+        }
+        window.closeCustomAlert = function() {
+            document.getElementById('customAlert')?.classList.add('hidden');
+        }
+
+        window.openRulesModal = function() { document.getElementById('rulesModal')?.classList.remove('hidden'); }
+        window.closeRulesModal = function() { document.getElementById('rulesModal')?.classList.add('hidden'); }
+
+        async function fetchAllDataFromFirebase() {
+            try {
+                const res = await fetch(`${FIREBASE_DB_URL}/.json`);
+                const data = await res.json();
+                if (data) {
+                    dbUsers = data.users || {};
+                    dbDiamondOrders = data.diamond_orders || {};
+                    dbDepositOrders = data.deposit_orders || {};
+
+                    if (state.isLoggedIn && state.currentUser) {
+                        let freshUser = Object.values(dbUsers).find(u => u.id === state.currentUser.id);
+                        if (freshUser) {
+                            if (freshUser.isBanned) {
+                                showAlert("သင့်အကောင့်သည် ပိတ်ပင် (Ban) ခံထားရပါသည်!");
+                                handleLogout();
+                                return;
+                            }
+                            state.currentUser = freshUser;
+                            localStorage.setItem('kp_active_user_v6', JSON.stringify(freshUser));
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Firebase Sync Error:", err);
+            }
+        }
+
+        setInterval(() => {
+            if (state.screen === 'tracking' && state.trackingOrder) {
+                let orderId = state.trackingOrder.orderId;
+                let targetNode = state.trackingType === 'diamond' ? dbDiamondOrders[orderId] : dbDepositOrders[orderId];
+                if (targetNode && targetNode.status === 'pending') {
+                    targetNode.elapsedSeconds = (targetNode.elapsedSeconds || 0) + 1;
+                    const timerEl = document.getElementById('liveTimerDisplay');
+                    if (timerEl) timerEl.innerText = formatElapsedTime(targetNode.elapsedSeconds);
+                }
+            }
+        }, 1000);
+
+        async function startSyncPulse() {
+            await fetchAllDataFromFirebase();
+            const activeEl = document.activeElement;
+            const isUserTyping = activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA');
+            if (!isUserTyping) {
+                render();
+            }
+            setTimeout(startSyncPulse, 5000); 
+        }
+
+        function formatElapsedTime(seconds) {
+            if(!seconds) return "0:00";
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function isIdValid() {
+            const cleanGameId = state.gameId.toString().replace(/[^0-9]/g, '');
+            const cleanZoneId = state.zoneId.toString().replace(/[^0-9]/g, '');
+            return (cleanGameId.length >= 8 && cleanGameId.length <= 11) && (cleanZoneId.length >= 3 && cleanZoneId.length <= 6);
+        }
+
+        function hasPendingDiamondOrders() {
+            if (!state.currentUser) return false;
+            if (state.currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+                return Object.values(dbDiamondOrders).some(o => o.status === 'pending');
+            }
+            return Object.values(dbDiamondOrders).some(o => o.buyerId === state.currentUser.id && o.status === 'pending');
+        }
+
+        function hasPendingDepositOrders() {
+            if (!state.currentUser) return false;
+            if (state.currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+                return Object.values(dbDepositOrders).some(o => o.status === 'pending');
+            }
+            return Object.values(dbDepositOrders).some(o => o.buyerId === state.currentUser.id && o.status === 'pending');
+        }
+
+        window.trackInput = function(field, val) {
+            state[field] = val;
+        }
+
+        window.copyText = function(elementId) {
+            let text = document.getElementById(elementId).innerText;
+            text = text.replace(" ကျပ်", "");
+            navigator.clipboard.writeText(text).then(() => {
+                showAlert("ကူးယူပြီးပါပြီ: " + text);
+            });
+        }
+
+        window.goToStep2 = function(method) {
+            const amount = state.depositAmountInput;
+            if (!amount || amount <= 0) {
+                showAlert("ကျေးဇူးပြု၍ ငွေသွင်းပမာဏကို ဖြည့်ပါဗျာ။");
+                return;
+            }
+            state.selectedPayment = method;
+            if(method === "kpay") {
+                state.depositDisplayPhone = "09671705735"; 
+            } else {
+                state.depositDisplayPhone = "09668639746"; 
+            }
+            state.depositStep = 2;
+            render();
+        }
+
+        function render() {
+            const root = document.getElementById('root');
+            if (!root) return;
+            
+            if (!state.isLoggedIn) {
+                root.innerHTML = `
+                    <div class="glass-panel p-6 mt-8 rounded-2xl border border-cyan-500/20">
+                        <h2 class="text-[#00E5FF] text-3xl font-black text-center mb-1 tracking-wider uppercase drop-shadow-[0_0_15px_rgba(0,229,255,0.4)]">KP DIAMOND</h2>
+                        <p class="text-xs text-gray-400 text-center mb-6">စနစ်ကိုအသုံးပြုရန် အကောင့်ဝင်ပေးပါဗျာ</p>
+                        
+                        <div class="flex bg-black/40 p-1.5 rounded-xl mb-6 border border-white/5">
+                            <button onclick="setAuthMode('login')" class="w-full py-2.5 text-xs font-bold rounded-lg transition-all ${state.authMode === 'login' ? 'bg-[#00E5FF]/10 text-[#00E5FF] border border-[#00E5FF]/20' : 'text-gray-400'}">လော့ဂ်အင်ဝင်ရန်</button>
+                            <button onclick="setAuthMode('signup')" class="w-full py-2.5 text-xs font-bold rounded-lg transition-all ${state.authMode === 'signup' ? 'bg-[#00E5FF]/10 text-[#00E5FF] border border-[#00E5FF]/20' : 'text-gray-400'}">အကောင့်သစ်ဖွင့်ရန်</button>
+                        </div>
+                        
+                        <div class="space-y-4 mb-6">
+                            ${state.authMode === 'signup' ? `
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5 pl-1">နာမည် (Username)</label>
+                                <input type="text" placeholder="ဥပမာ - U Kyaw Ko" value="${state.usernameInput}" oninput="trackInput('usernameInput', this.value)" class="w-full p-3.5 rounded-xl cyber-input text-sm focus:outline-none">
+                            </div>
+                            ` : ''}
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5 pl-1">Gmail လိပ်စာ</label>
+                                <input type="email" placeholder="example@gmail.com" value="${state.emailInput}" oninput="trackInput('emailInput', this.value)" class="w-full p-3.5 rounded-xl cyber-input text-sm focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5 pl-1">လျှို့ဝှက်နံပါတ် (Password)</label>
+                                <input type="password" placeholder="••••••••" value="${state.passwordInput}" oninput="trackInput('passwordInput', this.value)" class="w-full p-3.5 rounded-xl cyber-input text-sm focus:outline-none">
+                            </div>
+                        </div>
+                        <button onclick="handleAuthSubmit()" class="w-full btn-cyan-glow py-4 rounded-xl text-sm tracking-wide">
+                            ${state.authMode === 'login' ? 'ENTER APP (ဝင်မည်)' : 'CREATE ACCOUNT (အကောင့်ဖွင့်မည်)'}
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            let showDiamondNew = hasPendingDiamondOrders();
+            let showDepositNew = hasPendingDepositOrders();
+            let headerBlock = `
+                <div class="flex flex-col gap-3 glass-panel p-4 rounded-2xl mb-4 border border-cyan-500/10 shadow-xl">
+                    <div class="flex justify-between items-center">
+                        <div onclick="goToProfile()" class="text-xs cursor-pointer hover:opacity-80 flex items-center gap-2.5">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00E5FF] to-[#00f5d4] flex items-center justify-center text-black font-black text-lg shadow-lg">
+                                ${state.currentUser.username ? state.currentUser.username.charAt(0).toUpperCase() : 'U'}
+                            </div>
+                            <div>
+                                <p class="text-gray-100 font-black text-sm">👤 ${state.currentUser.username}</p>
+                                <p class="text-[10px] text-gray-500 font-mono font-bold mt-0.5">${state.currentUser.id}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="goToHistoryTab('diamond')" class="relative text-[10px] bg-black/40 hover:bg-black/60 border border-cyan-500/20 px-2.5 py-2 rounded-xl text-cyan-400 font-bold transition-all flex items-center gap-1">
+                                <span>စိန်မှတ်တမ်း</span>
+                                ${showDiamondNew ? `<span class="badge-new bg-red-500 text-white text-[9px] px-1 rounded-sm scale-90 font-mono">New</span>` : ''}
+                            </button>
+                            <button onclick="goToHistoryTab('deposit')" class="relative text-[10px] bg-black/40 hover:bg-black/60 border border-emerald-500/20 px-2.5 py-2 rounded-xl text-emerald-400 font-bold transition-all flex items-center gap-1">
+                                <span>ငွေသွင်းမှတ်တမ်း</span>
+                                ${showDepositNew ? `<span class="badge-new bg-red-500 text-white text-[9px] px-1 rounded-sm scale-90 font-mono">New</span>` : ''}
+                            </button>
+                        </div>
+                    </div>
+
+                    <button onclick="openRulesModal()" class="w-full bg-gradient-to-r from-red-950/60 to-red-900/60 border border-red-500/30 text-red-200 py-2.5 rounded-xl text-xs font-black tracking-wide shadow flex items-center justify-center gap-2 active:scale-95 transition-all">
+                        <span>🚨</span> စည်းကမ်းချက်များ ဖတ်ရှုရန် <span>🚨</span>
+                    </button>
+                    
+                    <div class="bg-gradient-to-r from-[#0d1624] to-[#090f1a] border border-emerald-500/20 rounded-xl p-3.5 flex justify-between items-center mt-1">
+                        <div>
+                            <p class="text-[10px] text-gray-400 uppercase tracking-wider font-bold">Wallet Balance</p>
+                            <p class="text-xl font-black text-emerald-400 font-mono mt-0.5">${(state.currentUser.balance || 0)} Ks</p>
+                        </div>
+                        <button onclick="goToDepositScreen()" class="text-xs bg-emerald-500 hover:bg-emerald-400 border border-emerald-600 px-4 py-2.5 rounded-xl text-black font-black transition-all shadow-lg active:scale-95">
+                            💰 ငွေသွင်းမည်
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            if (state.screen === 'home') {
+                if (!state.showMlbbCategory) {
+                    root.innerHTML = `
+                        <div class="relative w-full">
+                            ${state.showNoticePopup ? `
+                            <div class="fixed inset-0 bg-black/85 flex items-center justify-center p-4 z-50">
+                                <div class="bg-[#111827] border border-cyan-500/20 text-white p-6 rounded-2xl max-w-sm w-full text-center space-y-4 shadow-2xl">
+                                    <div class="text-3xl">📢</div>
+                                    <h3 class="font-black text-base tracking-wide text-[#00E5FF] border-b border-white/5 pb-2">အရေးကြီးသတိပေးချက်</h3>
+                                    <p class="text-xs font-bold leading-relaxed text-gray-300 text-left">
+                                        မနက် 8 နာရီမှ ည 10 နာရီ အတွင်း Order တင်ပါက အချိန်တိုအတွင်း လျင်မြန်စွာ ရောက်ရှိနိုင်ပါတယ်ဗျာ။ အကယ်၍ အခက်အခဲများ ကြုံတွေ့ရပါက Kp First နဲ့ တိုက်ရိုက် ဆက်သွယ်ပေးပါဗျာ။
+                                    </p>
+                                    <div class="space-y-2 pt-2">
+                                        <a href="${KP_TELEGRAM_LINK}" target="_blank" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-3 rounded-xl block text-center transition-all">
+                                            💬 Kp First နှင့် တိုက်ရိုက်ပြောမည်
+                                        </a>
+                                        <button onclick="closeNoticePopup()" class="w-full bg-white text-black text-xs font-black py-2.5 rounded-xl">နားလည်ပါပြီ ဆက်သွားရန်</button>
+                                    </div>
+                                </div>
+                            </div>
+                            ` : ''}
+
+                            ${headerBlock}
+
+                            <div class="mt-6">
+                                <button onclick="openMlbbCategory()" class="w-full bg-gradient-to-r from-[#111827] to-[#1f2937] hover:from-[#1f2937] hover:to-[#374151] border-2 border-[#00E5FF] text-[#00E5FF] font-black py-10 rounded-2xl text-base tracking-wide shadow-xl flex flex-col items-center justify-center gap-3 transition-all active:scale-95 duration-200">
+                                    <span class="text-4xl filter drop-shadow-[0_0_10px_rgba(0,229,255,0.5)]">💎🎮💎</span>
+                                    <span class="font-black uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-[#00E5FF] to-[#00f5d4]">Mobile Legends Diamonds</span>
+                                    <span class="text-xs text-gray-400 font-normal">စိန်ဝယ်ယူရန် ဤနေရာကိုနှိပ်ပါ</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    let packageCards = packages.map(pkg => {
+                        const isSelected = state.selectedPackage?.id === pkg.id;
+                        return `
+                            <div onclick="selectPackage('${pkg.id}')" class="p-4 rounded-xl text-center cursor-pointer border-2 transition-all ${isSelected ? 'border-[#00E5FF] bg-[#00E5FF]/5 shadow-[0_0_15px_rgba(0,229,255,0.1)]' : 'border-transparent bg-black/30'}">
+                                <div class="font-bold text-xs sm:text-sm text-gray-200">${pkg.name}</div>
+                                <div class="text-[#00E5FF] mt-1.5 text-xs font-black font-mono">${pkg.price} Ks</div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    root.innerHTML = `
+                        <div class="pb-36 relative w-full">
+                            ${headerBlock}
+                            
+                            <div class="mb-4 flex items-center justify-between bg-black/40 border border-[#00E5FF]/20 p-3 rounded-xl">
+                                <span class="text-[#00E5FF] text-xs font-black tracking-wider">🎮 MOBILE LEGENDS SHOP</span>
+                                <button onclick="closeMlbbCategory()" class="text-[11px] text-gray-400 font-bold underline hover:text-white">← ဆိုင်ပိတ်မည်</button>
+                            </div>
+
+                            <h4 class="text-xs font-black uppercase tracking-wider mb-3 text-gray-400 pl-1">၁။ PACKAGE (စိန်) အရင်ရွေးချယ်ပါ</h4>
+                            <div class="grid grid-cols-2 gap-2.5 mb-5">${packageCards}</div>
+
+                            <div class="glass-panel p-4 rounded-xl mb-6 shadow-lg border border-white/5">
+                                <h4 class="text-xs font-black uppercase tracking-wider mb-3 text-gray-400 pl-1">၂။ GAME ID ဖြည့်ပါ</h4>
+                                <div class="flex gap-2">
+                                    <input type="number" pattern="[0-9]*" inputmode="numeric" placeholder="User ID (8-11 လုံး)" value="${state.gameId}" oninput="trackInput('gameId', this.value)" class="w-full p-3.5 rounded-xl cyber-input text-sm focus:outline-none">
+                                    <input type="number" pattern="[0-9]*" inputmode="numeric" placeholder="Zone ID" value="${state.zoneId}" oninput="trackInput('zoneId', this.value)" class="w-full p-3.5 rounded-xl cyber-input text-sm focus:outline-none">
+                                </div>
+                            </div>
+                            
+                            <div class="fixed bottom-4 left-2 right-2 glass-panel border border-[#00E5FF]/20 p-4 max-w-md mx-auto rounded-2xl shadow-2xl z-40">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <div class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">စုစုပေါင်းကျသင့်ငွေ</div>
+                                        <div class="text-xl font-black text-[#00E5FF] font-mono">${state.selectedPackage ? state.selectedPackage.price : 0} Ks</div>
+                                    </div>
+                                    <button onclick="directGoToCheckout()" class="btn-cyan-glow text-black font-black px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider">ဝယ်ယူရန်</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            } 
+            else if (state.screen === 'deposit_screen') {
+                let paymentName = state.selectedPayment === 'kpay' ? 'U Kyaw Ko (KPay)' : 'U Kyaw Ko (Wave Pay)';
+
+                root.innerHTML = `
+                    <div class="pb-12 w-full">
+                        <h3 class="text-emerald-400 text-lg font-black mb-4 text-center tracking-wider">WALLET အတွင်းသို့ ငွေသွင်းမည်</h3>
+                        
+                        <div id="step1" class="${state.depositStep === 1 ? '' : 'hidden'} space-y-4">
+                            <div class="glass-panel p-4 rounded-xl shadow-lg border border-white/5">
+                                <h4 class="text-xs font-black text-gray-400 mb-3 uppercase tracking-wider">၁။ Ngwethwinမည့် ပမာဏကို ရိုက်ထည့်ပါ</h4>
+                                <input type="number" id="amountInput" inputmode="numeric" placeholder="ဥပမာ - ၁၀၀၀၀" value="${state.depositAmountInput}" oninput="trackInput('depositAmountInput', this.value)" class="w-full p-3.5 rounded-xl cyber-input text-sm focus:outline-none focus:border-emerald-400">
+                            </div>
+                            
+                            <div class="glass-panel p-4 rounded-xl shadow-lg border border-white/5">
+                                <h4 class="text-xs font-black text-gray-400 mb-3 uppercase tracking-wider">၂။ Ngwethwinမည့် นည်းလမ်းကို ရွေးချယ်ပါ</h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button onclick="goToStep2('kpay')" class="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/10 hover:bg-emerald-500/20 transition-all font-black text-white text-xs tracking-wide">
+                                        KBZ Pay ဖြင့် ဆက်သွားရန်
+                                    </button>
+                                    <button onclick="goToStep2('wave')" class="p-4 rounded-xl border border-amber-500/20 bg-amber-500/10 hover:bg-amber-500/20 transition-all font-black text-white text-xs tracking-wide">
+                                        Wave Pay ဖြင့် ဆက်သွားရန်
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="step2" class="${state.depositStep === 2 ? '' : 'hidden'} space-y-4">
+                            <div class="glass-panel p-4 rounded-xl shadow-lg border border-white/5 space-y-3.5">
+                                <h4 class="text-xs font-black text-gray-400 uppercase tracking-wider">ငွေလွှဲရန် အသေးစိတ်အချက်အလက်များ</h4>
+                                
+                                <div class="flex justify-between items-center bg-black/40 p-3 rounded-xl border border-white/5">
+                                    <div>
+                                        <p class="text-[10px] text-gray-400 font-bold uppercase">လွှဲရမည့် ပမာဏ</p>
+                                        <p id="displayAmount" class="text-base text-emerald-400 font-black font-mono">${state.depositAmountInput} ကျပ်</p>
+                                    </div>
+                                    <button onclick="copyText('displayAmount')" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] px-2.5 py-1 rounded font-black">Copy</button>
+                                </div>
+
+                                <div class="flex justify-between items-center bg-black/40 p-3 rounded-xl border border-white/5">
+                                    <div>
+                                        <p class="text-[10px] text-gray-400 font-bold uppercase">လွှဲရမည့် ဖုန်းနံပါတ် (<span id="methodName" class="uppercase">${state.selectedPayment}</span>)</p>
+                                        <p id="displayPhone" class="text-base text-cyan-400 font-mono font-black tracking-wider">${state.depositDisplayPhone}</p>
+                                        <p class="text-[10px] text-gray-400 mt-0.5">အမည် - ${paymentName}</p>
+                                    </div>
+                                    <button onclick="copyText('displayPhone')" class="bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] px-2.5 py-1 rounded font-black">Copy</button>
+                                </div>
+                            </div>
+
+                            <div class="glass-panel p-4 rounded-xl shadow-lg border border-white/5 space-y-4">
+                                <h4 class="text-xs font-black text-gray-400 uppercase tracking-wider">ငွေသွင်းအထောက်အထား ဖြည့်သွင်းပါ</h4>
+                                
+                                <div>
+                                    <label class="block text-[11px] text-gray-400 mb-1.5 font-bold uppercase tracking-wider">လုပ်ငန်းစဉ်ကုဒ် နောက်ဆုံး ၆ လုံး (Txn Code)</label>
+                                    <input type="text" id="codeInput" maxlength="6" placeholder="ဥပမာ - ၁၂၃၄၅၆" value="${state.depositTxCodeInput}" oninput="trackInput('depositTxCodeInput', this.value)" class="w-full p-3.5 rounded-xl cyber-input text-sm focus:outline-none focus:border-emerald-400">
+                                </div>
+                                
+                                <div class="relative w-full bg-black/40 border border-dashed border-emerald-500/30 rounded-xl py-5 px-4 text-center cursor-pointer flex items-center justify-center gap-2 hover:bg-black/60 transition-all">
+                                    <input type="file" id="imageInput" accept="image/*" onchange="handleFileUpload(event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                    <span id="imageUploadLabel" class="text-xs text-emerald-400 font-black tracking-wide">
+                                        ${state.isUploadingImage ? '⏳ ပုံတင်နေပါသည်...' : (state.screenshotUrl ? `✓ ပုံတင်ခြင်းအောင်မြင်ပါပြီ` : '📸 ငွေသွင်း ပြေစာပုံတင်ရန် (Upload Screenshot)')}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <button id="submitBtn" onclick="confirmDepositOrder()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-black py-4 rounded-xl text-sm tracking-wide shadow-xl transition-all">
+                                <span id="loadingText" class="hidden">⏳ ခေတ္တစောင့်ပါ... </span>အော်ဒါ အတည်ပြုရန်
+                            </button>
+                            
+                            <button onclick="state.depositStep = 1; render();" class="w-full bg-transparent text-gray-400 font-bold py-1 text-xs hover:text-white underline">← အဆင့် ၁ သို့ ပြန်သွားရန်</button>
+                        </div>
+
+                        <button onclick="goBack()" class="w-full bg-transparent text-gray-500 font-bold py-2 mt-4 text-xs hover:text-white">ပင်မစာမျက်နှာသို့ ပြန်သွားရန်</button>
+                    </div>
+                `;
+            }
+            else if (state.screen === 'checkout') {
+                root.innerHTML = `
+                    <div class="pb-12 w-full">
+                        <h3 class="text-[#00E5FF] text-lg font-black mb-4 text-center tracking-wider">ဝယ်ယူမှု အတည်ပြုခြင်း</h3>
+                        
+                        <div class="glass-panel p-5 rounded-xl shadow-lg mb-4 border border-white/5 space-y-2.5">
+                            <h4 class="text-xs font-black text-[#00E5FF] mb-3 border-b border-white/5 pb-1.5 uppercase tracking-wider">မှာယူမှု အသေးစိတ်</h4>
+                            <p class="text-sm text-gray-300">ဝယ်ယူသူ - <span class="text-white font-black">${state.currentUser.username}</span></p>
+                            <p class="text-sm text-gray-300">Game ID: <span class="text-white font-mono font-bold bg-black/30 px-2 py-0.5 rounded border border-white/5">${state.gameId} (${state.zoneId})</span></p>
+                            <p class="text-sm text-gray-300">Package: <span class="text-white font-black text-yellow-400">${state.selectedPackage?.name}</span></p>
+                            <p class="text-base text-[#00E5FF] font-black pt-1">ကျသင့်ငွေ: ${state.selectedPackage?.price} Ks</p>
+                        </div>
+
+                        <div class="glass-panel p-4 rounded-xl shadow-lg mb-6 text-center space-y-2 border border-white/5">
+                            <p class="text-[11px] text-gray-400 font-medium">သင့်အကောင့်လက်ကျန်ငွေမှ တိုက်ရိုက်နှုတ်ယူသွားမည်ဖြစ်ပြီး စခရင်ရှော့ပုံ တင်ရန်မလိုပါဗျာ။</p>
+                            <div class="text-sm font-black text-emerald-400 bg-emerald-500/5 py-2 rounded-lg border border-emerald-500/10">လက်ရှိအကောင့်လက်ကျန်: ${(state.currentUser.balance || 0)} Ks</div>
+                        </div>
+
+                        <button onclick="confirmDiamondOrderDirect()" class="w-full btn-cyan-glow py-4 rounded-xl text-sm tracking-wide">မှာယူမှုကို အတည်ပြုပါ</button>
+                        <button onclick="goBack()" class="w-full bg-transparent text-gray-500 font-bold py-2 mt-2 text-xs hover:text-white">နောက်သို့ ပြန်သွားရန်</button>
+                    </div>
+                `;
+            }
+            else if (state.screen === 'tracking') {
+                let orderId = state.trackingOrder?.orderId;
+                let currentOrder = state.trackingType === 'diamond' ? dbDiamondOrders[orderId] : dbDepositOrders[orderId];
+                
+                if (!currentOrder) currentOrder = { status: 'pending', elapsedSeconds: 0 };
+                
+                let statusText = "စောင့်ဆိုင်းနေဆဲ (PENDING)";
+                let statusBadgeColor = "text-amber-400 bg-amber-500/10 border border-amber-500/20";
+                let customOutputHTML = "";
+                
+                if (currentOrder.status === 'completed' || currentOrder.status === 'success') {
+                    statusText = "SUCCESS";
+                    statusBadgeColor = "text-green-400 bg-green-500/10 border border-green-500/20 px-4 py-2 rounded-xl font-black text-base";
+                    
+                    if (state.trackingType === 'deposit') {
+                        customOutputHTML = `<div class="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-xs font-bold text-emerald-400 leading-relaxed text-left">
+                            အောင်မြင်ပါသည်။ သင်သည်အချက်အလက်များမှန်ကန်စွာဖြည့်ခဲ့သဖြင့် အောင်မြင်ပါသည်။ နောက်ထပ်လည်း မျှော်လင့်ပါသည်။
+                        </div>`;
+                    } else if (state.trackingType === 'diamond') {
+                        customOutputHTML = `<div class="p-5 diamond-success-toast rounded-xl text-sm font-black leading-relaxed text-left shadow-lg">
+                            သင့်အကောင့်အား diamond (${currentOrder.packageName ? currentOrder.packageName.replace(/[^0-9]/g, '') : 'Pass'}) ထည့်သွင်းထားပါသည်။ သွားရောက်စစ်ဆေးကြည့်ပေးပါအုန်းဗျာ။
+                        </div>`;
+                    }
+                }
+                
+                if (currentOrder.status === 'rejected') {
+                    statusText = "❌ မှာယူမှု ငြင်းပယ်ခံရသည် (REJECTED)";
+                    statusBadgeColor = "text-red-400 bg-red-500/10 border border-red-500/20 px-4 py-2 rounded-xl font-black text-base";
+                    
+                    if (state.trackingType === 'deposit') {
+                        customOutputHTML = `<div class="p-4 bg-red-950/40 border border-red-500/30 rounded-xl text-xs font-bold text-red-400 leading-relaxed text-left">
+                            ငွေလွှဲကုဒ် သို့မဟုတ် ပြေစာအချက်အလက် မှားယွင်းနေပါသည်။ ကျေးဇူးပြု၍ ပြန်လည်စစ်ဆေးပေးပါဗျာ။
+                        </div>`;
+                    } else if (state.trackingType === 'diamond') {
+                        customOutputHTML = `<div class="p-4 bg-red-950/40 border border-red-500/30 rounded-xl text-xs font-bold text-red-400 leading-relaxed space-y-3">
+                            <p>တစ်ခုခုလွဲလျော်သွားခြင်း (သို့) admin ဘက်မှ မှားယွင်းဖယ်ချခြင်းများလုပ်မိသွားပါသည်။ admin သို့ချက်ချင်း အကြောင်းကြားရန်</p>
+                            <a href="${KP_TELEGRAM_LINK}" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-500 text-white text-center font-black py-2.5 rounded-xl transition-all">💬 Contact Admin Telegram</a>
+                        </div>`;
+                    }
+                }
+
+                root.innerHTML = `
+                    <div class="text-center mt-6 w-full space-y-4">
+                        <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-6 border border-white/5">
+                            ${(currentOrder.status === 'pending') ? `<div class="flex justify-center my-4"><div class="spinner"></div></div>` : ''}
+                            <div class="text-xs text-gray-400 font-bold">Order ID: <span class="font-mono text-white font-black bg-black/40 px-2 py-1 rounded">${orderId}</span></div>
+                            <div class="text-sm font-black tracking-wider py-1.5 uppercase ${statusBadgeColor}">${statusText}</div>
+                            ${(currentOrder.status === 'pending') ? `<div class="text-3xl font-mono font-black text-white tracking-widest" id="liveTimerDisplay">${formatElapsedTime(currentOrder.elapsedSeconds)}</div>` : ''}
+                        </div>
+                        ${customOutputHTML}
+                        <button onclick="backToHomeFromTracking()" class="w-full btn-cyan-glow py-3.5 rounded-xl text-xs uppercase tracking-wider">ပင်မစာမျက်နှာသို့ ပြန်သွားရန်</button>
+                    </div>
+                `;
+            }
+            else if (state.screen === 'history') {
+                let userOrders = Object.values(dbDiamondOrders).filter(o => o.buyerId === state.currentUser.id);
+                let userDepOrders = Object.values(dbDepositOrders).filter(o => o.buyerId === state.currentUser.id);
+
+                let diamondHistoryList = userOrders.reverse().map(order => {
+                    let displayStatus = order.status === 'completed' ? 'SUCCESS' : order.status.toUpperCase();
+                    return `
+                    <div class="p-3.5 bg-black/30 rounded-xl border border-white/5 flex justify-between items-center text-left">
+                        <div>
+                            <div class="flex items-center gap-1.5">
+                                <p class="text-[10px] font-mono font-bold text-cyan-400">${order.orderId}</p>
+                                ${order.status === 'pending' ? `<span class="badge-new bg-red-500 text-white text-[9px] px-1 rounded-sm font-bold">New</span>` : ''}
+                            </div>
+                            <p class="text-xs font-black text-gray-200 mt-1">${order.packageName}</p>
+                            <span class="text-[10px] font-black tracking-wider ${displayStatus === 'SUCCESS' ? 'text-green-400' : displayStatus === 'REJECTED' ? 'text-red-500' : 'text-amber-400'}">${displayStatus}</span>
+                        </div>
+                        <button onclick="viewOrderDetails('${order.orderId}', 'diamond')" class="bg-black/50 border border-cyan-500/30 text-[#00E5FF] text-[11px] font-bold px-3 py-1.5 rounded-lg">ကြည့်မည်</button>
+                    </div>
+                `}).join('');
+
+                let textHistoryList = userDepOrders.reverse().map(order => {
+                    let displayStatus = order.status === 'completed' ? 'SUCCESS' : order.status.toUpperCase();
+                    return `
+                    <div class="p-3.5 bg-black/30 rounded-xl border border-white/5 flex justify-between items-center text-left">
+                        <div>
+                            <div class="flex items-center gap-1.5">
+                                <p class="text-[10px] font-mono font-bold text-emerald-400">${order.orderId}</p>
+                                <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] px-1 rounded-sm font-black uppercase">${order.paymentMethod}</span>
+                                ${order.status === 'pending' ? `<span class="badge-new bg-red-500 text-white text-[9px] px-1 rounded-sm font-bold">New</span>` : ''}
+                            </div>
+                            <p class="text-xs font-black text-gray-200 mt-1">သွင်းငွေ: ${order.depositAmount} Ks</p>
+                            <span class="text-[10px] font-black tracking-wider ${displayStatus === 'SUCCESS' ? 'text-green-400' : displayStatus === 'REJECTED' ? 'text-red-500' : 'text-amber-400'}">${displayStatus}</span>
+                        </div>
+                        <button onclick="viewOrderDetails('${order.orderId}', 'deposit')" class="bg-black/50 border border-emerald-500/30 text-emerald-400 text-[11px] font-bold px-3 py-1.5 rounded-lg">ကြည့်မည်</button>
+                    </div>
+                `}).join('');
+
+                let showDiamondTabNew = hasPendingDiamondOrders();
+                let showDepositTabNew = hasPendingDepositOrders();
+
+                root.innerHTML = `
+                    <div class="space-y-4 w-full">
+                        <div class="flex bg-black/40 p-1.5 rounded-xl border border-white/5">
+                            <button onclick="switchHistoryTab('diamond')" class="w-full py-2.5 text-xs font-black rounded-lg transition-all flex justify-center items-center gap-1.5 ${state.activeHistoryTab === 'diamond' ? 'bg-[#00E5FF]/10 text-[#00E5FF] border border-[#00E5FF]/20' : 'text-gray-400'}">
+                                <span>💎 စိန်မှတ်တမ်း</span>
+                                ${showDiamondTabNew ? `<span class="badge-new bg-red-500 text-white text-[9px] px-1 rounded-sm">New</span>` : ''}
+                            </button>
+                            <button onclick="switchHistoryTab('deposit')" class="w-full py-2.5 text-xs font-black rounded-lg transition-all flex justify-center items-center gap-1.5 ${state.activeHistoryTab === 'deposit' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'text-gray-400'}">
+                                <span>💰 ငွေသွင်းမှတ်တမ်း</span>
+                                ${showDepositTabNew ? `<span class="badge-new bg-red-500 text-white text-[9px] px-1 rounded-sm">New</span>` : ''}
+                            </button>
+                        </div>
+
+                        <div class="pt-2 max-h-[60vh] overflow-y-auto pr-1 space-y-2">
+                            ${state.activeHistoryTab === 'diamond' ? diamondHistoryList || '<p class="text-xs text-gray-500 py-8 text-center font-bold">စိန်မှတ်တမ်းမရှိသေးပါဗျာ</p>' : textHistoryList || '<p class="text-xs text-gray-500 py-8 text-center font-bold">ငွေသွင်းမှတ်တမ်းမရှိသေးပါဗျာ</p>'}
+                        </div>
+
+                        <button onclick="goBack()" class="w-full bg-white/5 border border-white/10 text-white hover:bg-white/10 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider">ပင်မစာမျက်နှာသို့ ပြန်သွားရန်</button>
+                    </div>
+                `;
+            }
+            else if (state.screen === 'order_details') {
+                let targetOrder = state.selectedDetailType === 'diamond' ? dbDiamondOrders[state.selectedDetailOrderId] : dbDepositOrders[state.selectedDetailOrderId];
+
+                if (!targetOrder) {
+                    root.innerHTML = `<div class="text-center text-xs text-gray-400 mt-12"><p>အချက်အလက် ရှာမတွေ့ပါဗျာ</p><button onclick="goToHistoryTab('${state.activeHistoryTab}')" class="mt-4 bg-cyan-500 text-black px-4 py-2 rounded-lg font-bold">ပြန်သွားရန်</button></div>`;
+                    return;
+                }
+
+                let dStatus = targetOrder.status === 'completed' ? 'SUCCESS' : targetOrder.status.toUpperCase();
+                let statusColor = dStatus === 'SUCCESS' ? 'text-green-400' : dStatus === 'REJECTED' ? 'text-red-400' : 'text-amber-400';
+                let alertDetailHTML = "";
+
+                if (dStatus === 'SUCCESS') {
+                    if (state.selectedDetailType === 'deposit') {
+                        alertDetailHTML = `<div class="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-xs font-bold text-emerald-400 leading-relaxed">
+                            အောင်မြင်ပါသည်။ သင်သည်အချက်အလက်များမှန်ကန်စွာဖြည့်ခဲ့သဖြင့် အောင်မြင်ပါသည်။ နောက်ထပ်လည်း မျှော်လင့်ပါသည်။
+                        </div>`;
+                    } else {
+                        alertDetailHTML = `<div class="p-4 diamond-success-toast rounded-xl text-xs font-black leading-relaxed">
+                            သင့်အကောင့်အား diamond (${targetOrder.packageName ? targetOrder.packageName.replace(/[^0-9]/g, '') : 'Pass'}) ထည့်သွင်းထားပါသည်။ သွားရောက်စစ်ဆေးကြည့်ပေးပါအုန်းဗျာ။
+                        </div>`;
+                    }
+                } else if (dStatus === 'REJECTED') {
+                    if (state.selectedDetailType === 'deposit') {
+                        alertDetailHTML = `<div class="p-4 bg-red-950/40 border border-red-500/20 rounded-xl text-xs font-bold text-red-400 leading-relaxed space-y-3">
+                            <p>ငွေလွှဲကုဒ် သို့မဟုတ် ပြေစာအချက်အလက် မှားယွင်းနေပါသည်။</p>
+                            <a href="${KP_TELEGRAM_LINK}" target="_blank" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1 transition-all">💬 Admin ထံ တိုက်ရိုက်သွားရောက်ပြောမည်</a>
+                        </div>`;
+                    } else {
+                        alertDetailHTML = `<div class="p-4 bg-red-950/40 border border-red-500/20 rounded-xl text-xs font-bold text-red-400 leading-relaxed space-y-3">
+                            <p>တစ်ခုခုလွဲလျော်သွားခြင်း (သို့) admin ဘက်မှ မှားယွင်းဖယ်ချခြင်းများလုပ်မိသွားပါသည်။ admin သို့ချက်ချင်း အကြောင်းကြားရန်</p>
+                            <a href="${KP_TELEGRAM_LINK}" target="_blank" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1 transition-all">💬 Admin Telegram သို့ချက်ချင်းသွားမည်</a>
+                        </div>`;
+                    }
+                }
+
+                root.innerHTML = `
+                    <div class="mt-4 w-full space-y-4">
+                        <div class="glass-panel rounded-2xl p-6 border border-white/5 shadow-2xl space-y-4 text-left">
+                            <h3 class="text-center font-black border-b border-white/5 pb-2.5 text-sm tracking-wider uppercase ${state.selectedDetailType === 'diamond' ? 'text-[#00E5FF]' : 'text-emerald-400'}">
+                                ${state.selectedDetailType === 'diamond' ? '💎 စိန်ဝယ်ယူမှု အသေးစိတ်' : '💰 ငွေသွင်းမှု အသေးစိတ်'}
+                            </h3>
+                            <div class="space-y-3 font-mono text-xs">
+                                <div class="flex justify-between border-b border-black/40 pb-2"><span class="text-gray-400">Order ID:</span><span class="text-white font-bold">${targetOrder.orderId}</span></div>
+                                <div class="flex justify-between border-b border-black/40 pb-2"><span class="text-gray-400">အခြေအနေ:</span><span class="font-black ${statusColor}">${dStatus}</span></div>
+                                <div class="flex justify-between border-b border-black/40 pb-2"><span class="text-gray-400">နေ့ရက်အချိန်:</span><span class="text-gray-300">${targetOrder.dateTime || '-'}</span></div>
+                                
+                                ${state.selectedDetailType === 'diamond' ? `
+                                    <div class="flex justify-between border-b border-black/40 pb-2"><span class="text-gray-400">Game ID:</span><span class="text-yellow-400 font-bold font-mono">${targetOrder.gameId} (${targetOrder.zoneId})</span></div>
+                                    <div class="flex justify-between border-b border-black/40 pb-2"><span class="text-gray-400">Package:</span><span class="text-white">${targetOrder.packageName}</span></div>
+                                    <div class="flex justify-between pb-0.5"><span class="text-gray-400">ကျသင့်ငွေ:</span><span class="text-emerald-400 font-bold">${targetOrder.priceAmount} Ks</span></div>
+                                ` : `
+                                    <div class="flex justify-between border-b border-black/40 pb-2"><span class="text-gray-400">သွင်းငွေပမာဏ:</span><span class="text-emerald-400 font-bold">${targetOrder.depositAmount} Ks</span></div>
+                                    <div class="flex justify-between border-b border-black/40 pb-2"><span class="text-gray-400">ငွေသွင်းအမျိုးအစား:</span><span class="text-white uppercase font-bold">${targetOrder.paymentMethod || 'Kpay'}</span></div>
+                                    <div class="flex justify-between pb-0.5"><span class="text-gray-400">ငွေလွှဲကုဒ် ၆ လုံး:</span><span class="text-yellow-400 font-bold">${targetOrder.code}</span></div>
+                                `}
+                            </div>
+                        </div>
+                        ${alertDetailHTML}
+                        <button onclick="goToHistoryTab('${state.activeHistoryTab}')" class="w-full bg-white/5 border border-white/10 text-white py-3.5 rounded-xl font-black text-xs uppercase tracking-wider">မှတ်တမ်းစာမျက်နှာသို့ ပြန်သွားရန်</button>
+                    </div>
+                `;
+            }
+            else if (state.screen === 'profile') {
+                root.innerHTML = `
+                    <div class="mt-8 w-full">
+                        <div class="glass-panel rounded-2xl p-6 border border-white/5 shadow-2xl space-y-6">
+                            <div class="flex items-center gap-4 border-b border-white/5 pb-4">
+                                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#00E5FF] to-[#00f5d4] flex items-center justify-center text-black text-2xl font-black shadow-lg">
+                                    ${state.currentUser.username ? state.currentUser.username.charAt(0).toUpperCase() : 'U'}
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-black text-base uppercase tracking-wider">User Profile</h4>
+                                    <p class="text-[11px] text-gray-400 font-mono mt-0.5">${state.currentUser.email}</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3 text-xs sm:text-sm">
+                                <div class="flex justify-between items-center bg-black/30 px-4 py-3 rounded-xl border border-white/5">
+                                    <span class="text-gray-400 font-bold uppercase tracking-wide">Name</span>
+                                    <span class="text-white font-black">${state.currentUser.username}</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-black/30 px-4 py-3 rounded-xl border border-white/5">
+                                    <span class="text-gray-400 font-bold uppercase tracking-wide">Account ID</span>
+                                    <span class="text-cyan-400 font-mono font-bold tracking-wider">${state.currentUser.id}</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-black/30 px-4 py-3 rounded-xl border border-white/5">
+                                    <span class="text-gray-400 font-bold uppercase tracking-wide">Amount</span>
+                                    <span class="text-emerald-400 font-black font-mono tracking-wide">${(state.currentUser.balance || 0)} Ks</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 pt-2">
+                                <button onclick="handleLogout()" class="bg-red-950/40 hover:bg-red-900/40 border border-red-900 text-red-400 py-3.5 rounded-xl font-black text-xs uppercase tracking-wider transition-colors">Logout</button>
+                                <button onclick="goBack()" class="bg-white/5 border border-white/10 hover:bg-white/10 text-white py-3.5 rounded-xl font-black text-xs uppercase tracking-wider transition-colors">ပင်မစာမျက်နှာ</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            else if (state.screen === 'admin_panel') {
+                let allDiamondOrders = Object.values(dbDiamondOrders).reverse();
+                let allDepositOrders = Object.values(dbDepositOrders).reverse();
+                let regularUsers = Object.values(dbUsers).filter(u => u.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase());
+
+                let pDiamondCount = Object.values(dbDiamondOrders).filter(o => o.status === 'pending').length;
+                let pDepositCount = Object.values(dbDepositOrders).filter(o => o.status === 'pending').length;
+
+                let usersHtml = regularUsers.map(u => {
+                    let username = u.username || "Unknown User";
+                    let userId = u.id || "No ID";
+                    let balance = u.balance !== undefined ? u.balance : 0;
+                    let email = u.email || "No Email";
+                    let isBanned = u.isBanned || false;
+
+                    return `
+                    <div class="p-3.5 bg-black/30 rounded-xl border border-white/5 flex justify-between items-center text-xs">
+                        <div>
+                            <p class="font-black text-white">👤 ${username} (${userId})</p>
+                            <p class="text-[11px] text-emerald-400 font-black font-mono mt-0.5">Balance: ${balance} Ks</p>
+                            <p class="text-[10px] text-gray-500 font-mono mt-0.5">${email}</p>
+                        </div>
+                        <button onclick="toggleBanUser('${userId}')" class="px-3 py-1.5 rounded-lg text-[11px] font-black uppercase text-white ${isBanned ? 'bg-green-600 hover:bg-green-500' : 'bg-red-600 hover:bg-red-500'}">
+                            ${isBanned ? 'Unban' : 'Ban'}
+                        </button>
+                    </div>
+                    `;
+                }).join('');
+
+                let tabContentHtml = "";
+                
+                if (state.adminActiveTab === 'diamond') {
+                    let list = allDiamondOrders.map(o => {
+                        let isPending = o.status === 'pending';
+                        let displayStatus = o.status === 'completed' ? 'SUCCESS' : o.status.toUpperCase();
+                        return `
+                        <div class="p-3.5 bg-black/30 rounded-xl border border-white/5 space-y-2.5 text-left text-xs">
+                            <div class="flex justify-between font-mono font-bold border-b border-white/5 pb-1.5">
+                                <span class="text-cyan-400 font-bold">${o.orderId}</span>
+                                <span class="${displayStatus === 'SUCCESS' ? 'text-green-400' : displayStatus === 'REJECTED' ? 'text-red-500' : 'text-amber-400'}">
+                                    [${displayStatus}] ${isPending ? `<span class="badge-new bg-red-500 text-white text-[9px] px-1 rounded-sm ml-1">New</span>` : ''}
+                                </span>
+                            </div>
+                            <p class="text-gray-300">ဝယ်သူ ID: <span class="text-white font-bold">${o.buyerId}</span></p>
+                            <p class="text-gray-300">Game ID: <span class="text-yellow-400 font-bold font-mono">${o.gameId} (${o.zoneId})</span></p>
+                            <p class="text-gray-300">Package: <span class="text-white font-bold">${o.packageName}</span></p>
+                            <p class="text-gray-300">ကျသင့်ငွေ: <span class="text-emerald-400 font-black font-mono">${o.priceAmount} Ks</span></p>
+                            
+                            ${isPending ? `
+                            <div class="flex gap-2 pt-2 border-t border-white/5">
+                                <button onclick="updateDiamondOrderStatus('${o.orderId}', 'completed')" class="w-full bg-green-600 hover:bg-green-500 text-white font-black py-2 rounded-lg text-[11px]">✓ အောင်မြင်သည်</button>
+                                <button onclick="updateDiamondOrderStatus('${o.orderId}', 'rejected')" class="w-full bg-red-600 hover:bg-red-500 text-white font-black py-2 rounded-lg text-[11px]">❌ ငြင်းပယ်မည်</button>
+                            </div>
+                            ` : ''}
+                        </div>`;
+                    }).join('');
+                    
+                    tabContentHtml = `
+                        <div class="space-y-3">
+                            <h4 class="text-xs text-[#00E5FF] font-black uppercase tracking-wider text-left pl-1">💎 စိန်ဝယ်ယူမှု အော်ဒါစာရင်း (${allDiamondOrders.length})</h4>
+                            <div class="space-y-2.5 max-h-80 overflow-y-auto pr-1">${list || '<p class="text-xs text-gray-500 py-6 text-center font-bold">စိန်မှာယူမှုမှတ်တမ်းမရှိသေးပါ</p>'}</div>
+                        </div>
+                    `;
+                } else {
+                    let list = allDepositOrders.map(o => {
+                        let isPending = o.status === 'pending';
+                        let displayStatus = o.status === 'completed' ? 'SUCCESS' : o.status.toUpperCase();
+                        return `
+                        <div class="p-3.5 bg-black/30 rounded-xl border border-white/5 space-y-2.5 text-left text-xs relative">
+                            <span class="absolute top-3 right-3 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-mono font-black uppercase">${o.paymentMethod}</span>
+                            <div class="flex justify-between font-mono font-bold pr-16 border-b border-white/5 pb-1.5">
+                                <span class="text-emerald-400 font-bold">${o.orderId}</span>
+                                <span class="${displayStatus === 'SUCCESS' ? 'text-green-400' : displayStatus === 'REJECTED' ? 'text-red-500' : 'text-amber-400'}">
+                                    [${displayStatus}] ${isPending ? `<span class="badge-new bg-red-500 text-white text-[9px] px-1 rounded-sm ml-1">New</span>` : ''}
+                                </span>
+                            </div>
+                            <p class="text-gray-300">ဝယ်သူ ID: <span class="text-white font-bold">${o.buyerId}</span></p>
+                            <p class="text-gray-300">ငွေသွင်း ပမာဏ: <span class="text-emerald-400 font-black font-mono text-sm">${o.depositAmount} Ks</span></p>
+                            <p class="text-gray-300">ကုဒ် ၆ လုံး: <span class="text-yellow-400 font-mono font-black">${o.code}</span></p>
+                            
+                            <div class="flex gap-2 pt-1.5 border-t border-white/5">
+                                ${o.imageUrl ? `<button onclick="openReceiptTab('${o.buyerId}', '${o.code}', '${o.imageUrl}')" class="bg-blue-600 hover:bg-blue-500 text-white font-black px-3 py-1.5 rounded-lg text-[10px] uppercase">👀 ပြေစာပုံ</button>` : ''}
+                                ${isPending ? `
+                                    <button onclick="updateDepositOrderStatus('${o.orderId}', 'completed')" class="w-full bg-green-600 hover:bg-green-500 text-white font-black py-1.5 rounded-lg text-[11px]">✓ အောင်မြင်သည်</button>
+                                    <button onclick="updateDepositOrderStatus('${o.orderId}', 'rejected')" class="w-full bg-red-600 hover:bg-red-500 text-white font-black py-1.5 rounded-lg text-[11px]">❌ Ngြင်းပယ်မည်</button>
+                                ` : ''}
+                            </div>
+                        </div>`;
+                    }).join('');
+
+                    tabContentHtml = `
+                        <div class="space-y-3">
+                            <h4 class="text-xs text-emerald-400 font-black uppercase tracking-wider text-left pl-1">💰 ငွေသွင်းမှတ်တမ်းစာရင်း (${allDepositOrders.length})</h4>
+                            <div class="space-y-2.5 max-h-80 overflow-y-auto pr-1">${list || '<p class="text-xs text-gray-500 py-6 text-center font-bold">ငွေသွင်းအော်ဒါမရှိသေးပါ</p>'}</div>
+                        </div>
+                    `;
+                }
+
+                root.innerHTML = `
+                    <div class="space-y-6 w-full">
+                        <div class="glass-panel border border-red-500/20 p-4 rounded-xl text-center">
+                            <h3 class="text-white font-black text-sm tracking-wider uppercase">🔑 KEY ADMIN CONTROL CENTER</h3>
+                            <button onclick="handleLogout()" class="text-xs text-red-400 font-bold underline mt-2 block mx-auto">Logout ထွက်မည်</button>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 bg-black/40 p-1.5 rounded-xl border border-white/5">
+                            <button onclick="switchAdminTab('diamond')" class="relative py-3 rounded-lg text-xs font-black uppercase tracking-wider flex justify-center items-center gap-1.5 transition-all ${state.adminActiveTab === 'diamond' ? 'bg-[#00E5FF]/10 border border-cyan-500/30 text-[#00E5FF]' : 'text-gray-400'}">
+                                <span>💎 Diamond Order</span>
+                                ${pDiamondCount > 0 ? `<span class="bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded-md font-mono">${pDiamondCount}</span>` : ''}
+                            </button>
+                            <button onclick="switchAdminTab('deposit')" class="relative py-3 rounded-lg text-xs font-black uppercase tracking-wider flex justify-center items-center gap-1.5 transition-all ${state.adminActiveTab === 'deposit' ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400' : 'text-gray-400'}">
+                                <span>💰 Deposit Order</span>
+                                ${pDepositCount > 0 ? `<span class="bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded-md font-mono">${pDepositCount}</span>` : ''}
+                            </button>
+                        </div>
+
+                        <div>${tabContentHtml}</div>
+
+                        <hr class="border-white/5">
+
+                        <div class="space-y-3">
+                            <h4 class="text-xs text-red-400 font-black uppercase tracking-wider text-left pl-1">👥 ဆိုင်ရှိ USER စာရင်းအပြည့်အစုံ</h4>
+                            <div class="space-y-2.5 max-h-56 overflow-y-auto pr-1">${usersHtml}</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        window.openMlbbCategory = function() { state.showMlbbCategory = true; render(); }
+        window.closeMlbbCategory = function() { state.showMlbbCategory = false; render(); }
+        window.switchAdminTab = function(tabName) { state.adminActiveTab = tabName; render(); }
+
+        window.handleFileUpload = function(e) { 
+            if(e.target.files.length > 0) { 
+                const file = e.target.files[0];
+                state.screenshotName = file.name; 
+                state.isUploadingImage = true; 
+                render();
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const max_width = 600; 
+                        const scale = max_width / img.width;
+                        canvas.width = max_width;
+                        canvas.height = img.height * scale;
+                        
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        state.screenshotUrl = canvas.toDataURL('image/jpeg', 0.4); 
+                        state.isUploadingImage = false; 
+                        render();
+                    };
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            } 
+        }
+
+        window.openReceiptTab = function(buyerId, last6Code, dataUrl) {
+            const newTab = window.open();
+            if(!newTab) return;
+            newTab.document.write(`<html><body style="background:#080b11;color:#fff;text-align:center;padding:20px;font-family:sans-serif;"><div style="max-width:400px;margin:20px auto;background:#111827;padding:25px;border-radius:16px;border:1px solid rgba(255,255,255,0.05);"><h2>📋 Receipt Details</h2><p style="color:#9ca3af;">User: ${buyerId}</p><p style="color:#9ca3af;">Code: ${last6Code}</p><img src="${dataUrl}" style="max-width:100%;border-radius:12px;margin-top:15px;box-shadow:0 4px 20px rgba(0,0,0,0.5);"/></div></body></html>`);
+            newTab.document.close();
+        }
+
+        window.handleAuthSubmit = async function() {
+            const inputEmailLower = state.emailInput.trim().toLowerCase();
+
+            if(state.authMode === 'login') {
+                let matchedUser = Object.values(dbUsers).find(u => u.email.toLowerCase() === inputEmailLower && u.password === state.passwordInput);
+                
+                if (!matchedUser && inputEmailLower === ADMIN_EMAIL.toLowerCase() && state.passwordInput === '123') {
+                    matchedUser = {
+                        id: "KP-1001",
+                        username: "Admin",
+                        email: ADMIN_EMAIL,
+                        password: "123",
+                        isBanned: false,
+                        balance: 999999
+                    };
+                }
+
+                if(matchedUser) {
+                    if (matchedUser.isBanned) { showAlert('ဤအကောင့်သည် ပိတ်ပင်ခံထားရပါသည်!'); return; }
+                    state.isLoggedIn = true; 
+                    state.currentUser = matchedUser; 
+                    localStorage.setItem('kp_active_user_v6', JSON.stringify(matchedUser)); 
+
+                    if (inputEmailLower === ADMIN_EMAIL.toLowerCase()) { state.screen = 'admin_panel'; } 
+                    else { state.screen = 'home'; state.showNoticePopup = true; state.showMlbbCategory = false; }
+                    render();
+                } else { showAlert('Gmail သို့မဟုတ် Password မှားယွင်းနေပါသည်'); }
+            } else {
+                if(!state.emailInput || !state.passwordInput || !state.usernameInput) { showAlert('အချက်အလက်အားလုံးကို ဖြည့်သွင်းပေးပါရန်'); return; }
+                if(Object.values(dbUsers).some(u => u.email.toLowerCase() === inputEmailLower)) { showAlert('ဤ Gmail ဖြင့် အကောင့်ဖွင့်ထားပြီးသား ဖြစ်နေပါတယ်'); return; }
+
+                let nextNumber = 1001 + Object.keys(dbUsers).length + 1;
+                let newCustomId = `KP-${nextNumber}`;
+                
+                let freshUserObj = { id: newCustomId, username: state.usernameInput.trim(), email: state.emailInput.trim(), password: state.passwordInput, isBanned: false, balance: 0 };
+                
+                await fetch(`${FIREBASE_DB_URL}/users/${newCustomId}.json`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(freshUserObj)
+                });
+
+                showAlert('အကောင့်ဖွင့်ခြင်း အောင်မြင်ပါသည်! လော့ဂ်အင် ပြန်ဝင်ပေးပါရန်။');
+                state.authMode = 'login'; 
+                await fetchAllDataFromFirebase();
+                render();
+            }
+        }
+
+        async function getNextIncrementId(counterNodeName) {
+            try {
+                const response = await fetch(`${FIREBASE_DB_URL}/${counterNodeName}.json`);
+                const currentCount = await response.json();
+                const nextId = (currentCount || 0) + 1;
+                
+                await fetch(`${FIREBASE_DB_URL}/${counterNodeName}.json`, {
+                    method: 'PUT',
+                    body: JSON.stringify(nextId)
+                });
+                return nextId;
+            } catch (err) {
+                console.error("Counter Error:", err);
+                return Math.floor(Math.random() * 90000) + 10000;
+            }
+        }
+
+        window.confirmDepositOrder = async function() {
+            const codeInputVal = state.depositTxCodeInput.toString().trim();
+            const fileInputEl = document.getElementById("imageInput");
+
+            if (!state.depositAmountInput || state.depositAmountInput <= 0) {
+                showAlert("ကျေးဇူးပြု၍ ငွေသွင်းပမာဏကို မှန်ကန်စွာ ဖြည့်ပါဗျာ။"); return;
+            }
+            if (codeInputVal.length !== 6) {
+                showAlert("လုပ်ငန်းစဉ်ကုဒ် ဂဏန်း ၆ လုံး ရိုက်ပေးပါဗျာ။"); return;
+            }
+            if (!state.screenshotUrl) {
+                showAlert("ငွေသွင်း Screenshot ပုံ တင်ပေးပါဦးဗျာ။"); return;
+            }
+
+            const loadingText = document.getElementById("loadingText");
+            const submitBtn = document.getElementById("submitBtn");
+            if(loadingText) loadingText.classList.remove("hidden");
+            if(submitBtn) submitBtn.disabled = true;
+
+            try {
+                const nextId = await getNextIncrementId("deposit_counter");
+                const uniqueDepOrderId = `DEP${String(nextId).padStart(7, '0')}`;
+                
+                const now = new Date();
+                const mmTimeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+                const buyerId = state.currentUser ? state.currentUser.id : "KP-1002";
+
+                const formData = new FormData();
+                formData.append("chat_id", TELEGRAM_CHAT_ID);
+                
+                if(fileInputEl && fileInputEl.files.length > 0) {
+                    formData.append("photo", fileInputEl.files[0]);
+                } else {
+                    const byteString = atob(state.screenshotUrl.split(',')[1]);
+                    const mimeString = state.screenshotUrl.split(',')[0].split(':')[1].split(';')[0];
+                    const ab = new ArrayBuffer(byteString.length);
+                    const ia = new Uint8Array(ab);
+                    for (let i = 0; i < byteString.length; i++) { ia[i] = byteString.charCodeAt(i); }
+                    const blob = new Blob([ab], {type: mimeString});
+                    formData.append("photo", blob, "screenshot.jpg");
+                }
+
+                formData.append("caption", `🔔 **ငွေသွင်းမှုအသစ် ရောက်ရှိလာပါသည်**\n━━━━━━━━━━━━━━━━━━\n🆔 Order ID: ${uniqueDepOrderId}\n👤 Buyer ID: ${buyerId}\n💰 ပမာဏ: ${state.depositAmountInput} ကျပ်\n💳 နည်းလမ်း: ${state.selectedPayment.toUpperCase()}\n🔢 ကုဒ်: ${codeInputVal}\n⏱️ အချိန်: ${mmTimeStr}`);
+
+                const tgResp = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+                    method: "POST",
+                    body: formData
+                });
+                
+                await tgResp.json();
+
+                let freshDeposit = {
+                    orderId: uniqueDepOrderId, 
+                    buyerId: buyerId,
+                    depositAmount: parseInt(state.depositAmountInput.toString().trim()),
+                    paymentMethod: state.selectedPayment,
+                    code: codeInputVal, 
+                    imageUrl: state.screenshotUrl, 
+                    status: 'pending', 
+                    elapsedSeconds: 0, 
+                    dateTime: mmTimeStr
+                };
+
+                await fetch(`${FIREBASE_DB_URL}/deposit_orders/${uniqueDepOrderId}.json`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(freshDeposit)
+                });
+
+                state.trackingOrder = freshDeposit; 
+                state.trackingType = 'deposit';
+                state.depositAmountInput = ''; state.depositTxCodeInput = ''; state.screenshotUrl = ''; state.screenshotName = '';
+                state.depositStep = 1; 
+                
+                showAlert("ငွေသွင်းမှု အောင်မြင်စွာ တင်ပြပြီးပါပြီဗျာ!");
+                state.screen = 'tracking'; 
+                await fetchAllDataFromFirebase();
+                render();
+
+            } catch(err) {
+                console.error("Submission Error: ", err);
+                showAlert("တစ်ခုခုမှားယွင်းနေပါသည်။ ထပ်မံကြိုးစားကြည့်ပါ။");
+            } finally {
+                if(loadingText) loadingText.classList.add("hidden");
+                if(submitBtn) submitBtn.disabled = false;
+            }
+        }
+
+        window.confirmDiamondOrderDirect = async function() {
+            let userBalance = state.currentUser.balance || 0;
+            let packagePrice = state.selectedPackage.price;
+
+            if (userBalance < packagePrice) { showAlert("အကောင့်တွင် ငွေမလုံလောက်တော့ပါဗျာ။"); return; }
+
+            try {
+                const nextId = await getNextIncrementId("diamond_counter");
+                const uniqueOrderId = `ORDER${String(nextId).padStart(7, '0')}`;
+
+                let targetUserId = state.currentUser.id;
+                let finalBalance = userBalance - packagePrice;
+
+                await fetch(`${FIREBASE_DB_URL}/users/${targetUserId}/balance.json`, {
+                    method: 'PUT',
+                    body: JSON.stringify(finalBalance)
+                });
+
+                const now = new Date();
+                const mmTimeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+                let freshDiamondOrder = { 
+                    orderId: uniqueOrderId, buyerId: state.currentUser.id, gameId: state.gameId.trim(), zoneId: state.zoneId.trim(),
+                    packageName: state.selectedPackage.name, priceAmount: packagePrice, status: 'pending', elapsedSeconds: 0, dateTime: mmTimeStr
+                };
+                
+                await fetch(`${FIREBASE_DB_URL}/diamond_orders/${uniqueOrderId}.json`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(freshDiamondOrder)
+                });
+
+                state.trackingOrder = freshDiamondOrder; 
+                state.trackingType = 'diamond';
+                state.screen = 'tracking'; 
+                await fetchAllDataFromFirebase();
+                render();
+                
+                let messageText = `🚀 **စိန်ဝယ်ယူမှုအော်ဒါအသစ်**\n━━━━━━━━━━━━━━━━━━\n🆔 ID: ${uniqueOrderId}\n👤 User: ${state.currentUser.id}\n🎮 Game ID: ${state.gameId} (${state.zoneId})\n📦 Pkg: ${state.selectedPackage.name}\n💵 ကျသင့်ငွေ: ${packagePrice} Ks\n⏱️ အချိန်: ${mmTimeStr}`;
+                
+                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, { 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: messageText, parse_mode: "Markdown" }) 
+                });
+
+            } catch(err) {
+                console.error("Diamond Order Error:", err);
+                showAlert("အော်ဒါတင်ခြင်း မအောင်မြင်ပါ။ ပြန်လည်ကြိုးစားပေးပါ။");
+            }
+        }
+
+        window.updateDepositOrderStatus = async function(orderId, newStatus) {
+            let targetOrder = dbDepositOrders[orderId];
+            if (targetOrder && targetOrder.status === 'pending') {
+                if (newStatus === 'completed') {
+                    let userSnap = await fetch(`${FIREBASE_DB_URL}/users/${targetOrder.buyerId}.json`);
+                    let userData = await userSnap.json();
+                    if (userData) {
+                        let updatedBalance = (userData.balance || 0) + targetOrder.depositAmount;
+                        await fetch(`${FIREBASE_DB_URL}/users/${targetOrder.buyerId}/balance.json`, {
+                            method: 'PUT',
+                            body: JSON.stringify(updatedBalance)
+                        });
+                    }
+                }
+                
+                await fetch(`${FIREBASE_DB_URL}/deposit_orders/${orderId}/status.json`, {
+                    method: 'PUT',
+                    body: JSON.stringify(newStatus)
+                });
+
+                try {
+                    const statusEmoji = newStatus === 'completed' ? '✅ အောင်မြင်ပါသည် (SUCCESS)' : '❌ ငြင်းပယ်လိုက်ပါသည် (REJECTED)';
+                    let updateTgText = `📊 **ငွေသွင်း အော်ဒါ အခြေအနေ အသစ်**\n━━━━━━━━━━━━━━━━━━\n🆔 Order ID: ${targetOrder.orderId}\n👤 Buyer ID: ${targetOrder.buyerId}\n💰 ပမာဏ: ${targetOrder.depositAmount} Ks\n💳 နည်းလမ်း: ${targetOrder.paymentMethod.toUpperCase()}\n🔢 ကုဒ်: ${targetOrder.code}\n📢 အခြေအနေ: **${statusEmoji}**`;
+                    
+                    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: updateTgText, parse_mode: "Markdown" })
+                    });
+                } catch (tgErr) {
+                    console.error("Telegram status resend error:", tgErr);
+                }
+
+                showAlert(`ငွေသွင်းအော်ဒါ လုပ်ဆောင်ပြီးပါပြီ။`); 
+                await fetchAllDataFromFirebase();
+                render();
+            }
+        }
+
+        window.updateDiamondOrderStatus = async function(orderId, newStatus) {
+            let targetOrder = dbDiamondOrders[orderId];
+            if (targetOrder && targetOrder.status === 'pending') {
+                if (newStatus === 'rejected') {
+                    let userSnap = await fetch(`${FIREBASE_DB_URL}/users/${targetOrder.buyerId}.json`);
+                    let userData = await userSnap.json();
+                    if (userData) {
+                        let updatedBalance = (userData.balance || 0) + targetOrder.priceAmount;
+                        await fetch(`${FIREBASE_DB_URL}/users/${targetOrder.buyerId}/balance.json`, {
+                            method: 'PUT',
+                            body: JSON.stringify(updatedBalance)
+                        });
+                    }
+                }
+
+                await fetch(`${FIREBASE_DB_URL}/diamond_orders/${orderId}/status.json`, {
+                    method: 'PUT',
+                    body: JSON.stringify(newStatus)
+                });
+
+                try {
+                    const statusEmoji = newStatus === 'completed' ? '✅ အောင်မြင်ပါသည် (SUCCESS)' : '❌ ငြင်းပယ်လိုက်ပါသည် (REJECTED)';
+                    let updateTgText = `📢 **စိန်ဝယ်ယူမှု အော်ဒါ အခြေအနေ အသစ်**\n━━━━━━━━━━━━━━━━━━\n🆔 Order ID: ${targetOrder.orderId}\n👤 User: ${targetOrder.buyerId}\n🎮 Game ID: ${targetOrder.gameId} (${targetOrder.zoneId})\n📦 Pkg: ${targetOrder.packageName}\n💵 ကျသင့်ငွေ: ${targetOrder.priceAmount} Ks\n📊 အခြေအနေ: **${statusEmoji}**`;
+                    
+                    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: updateTgText, parse_mode: "Markdown" })
+                    });
+                } catch (tgErr) {
+                    console.error("Telegram status resend error:", tgErr);
+                }
+
+                showAlert(`စိန်အော်ဒါ လုပ်ဆောင်ပြီးပါပြီ။`); 
+                await fetchAllDataFromFirebase();
+                render();
+            }
+        }
+
+        window.toggleBanUser = async function(userId) {
+            let targetUser = dbUsers[userId];
+            if (targetUser) {
+                let targetStatus = !targetUser.isBanned;
+                await fetch(`${FIREBASE_DB_URL}/users/${userId}/isBanned.json`, {
+                    method: 'PUT',
+                    body: JSON.stringify(targetStatus)
+                });
+                await fetchAllDataFromFirebase();
+                render(); 
+            }
+        }
+
+        window.closeNoticePopup = function() { state.showNoticePopup = false; render(); }
+        window.selectPaymentMethod = function(method) { state.selectedPayment = method; render(); }
+        window.goToDepositScreen = function() { state.screen = 'deposit_screen'; state.depositStep = 1; render(); }
+        window.directGoToCheckout = function() {
+            if (!state.selectedPackage) { showAlert("ကျေးဇူးပြု၍ Package (စိန်) ကို အရင်ဦးဆုံး ရွေးချယ်ပေးပါဦးဗျာ။"); return; }
+            if (!state.gameId || !state.zoneId || !isIdValid()) { showAlert('ဂိမ်း ID နှင့် Zone ID ကို မှန်ကန်စွာ ဖြည့်သွင်းပေးပါဦးဗျာ။'); return; }
+            state.screen = 'checkout'; render();
+        }
+        window.setAuthMode = function(mode) { state.authMode = mode; render(); }
+        window.selectPackage = function(id) { state.selectedPackage = packages.find(p => p.id === id); render(); }
+        window.goBack = function() { state.screen = 'home'; render(); }
+        window.goToHistoryTab = function(tabType) { state.activeHistoryTab = tabType; state.screen = 'history'; render(); }
+        window.switchHistoryTab = function(tab) { state.activeHistoryTab = tab; render(); }
+        window.goToProfile = function() { state.screen = 'profile'; render(); }
+        window.viewOrderDetails = function(orderId, type) { state.selectedDetailOrderId = orderId; state.selectedDetailType = type; state.screen = 'order_details'; render(); }
+        window.backToHomeFromTracking = function() { state.screen = 'home'; render(); }
+        window.handleLogout = function() { state.isLoggedIn = false; state.currentUser = null; localStorage.removeItem('kp_active_user_v6'); state.screen = 'auth'; state.authMode = 'login'; render(); }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            startSyncPulse();
+        });
+    </script>
+</body>
+</html>
+			<script>
+				try {
+					
+const btn = document.getElementById('btn');
+if (btn) {
+  btn.addEventListener('click', () => {
+    alert('Button clicked! 🚀');
+  });
+}
+
+				} catch (err) {
+					console.error(err.message || err);
+				}
+			</script>
+		</body>
+		</html>
+	
